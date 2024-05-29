@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8"/>
+    <title>{% block title %}KnowVid{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: sans-serif;
+      }
+      #header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2f75d8;
+        padding: 1em;
+        color: white;
+      }
+      .logo {
+        font-size: 28px;
+        color: white;
+        text-decoration: none;
+      }
+      .menu {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+      }
+      .menu li {
+        margin-left: 1em;
+      }
+      .menu a {
+        color: white;
+        text-decoration: none;
+      }
+      .menu a:hover {
+        text-decoration: underline;
+      }
+      #content {
+          padding: 0;
+          /* height: calc(100vh - 64px); */
+          /* background-image: url('{% static "images/bg.png" %}');
+          background-size: cover;
+          background-position: center; */
+      }
+      .wrapper {
+        padding: 1rem;
+        height: calc(100vh - 64px);
+        box-sizing: border-box;
+        overflow-y: auto;
+        background-image: url('{% static "images/bg.png" %}');
+        background-size: cover;
+        background-position: center;
+      }
+      .wrapper.home-wrapper {
+        background-image: url('{% static "images/bg_blur.png" %}');
+      }
+      .white-container {
+        margin: 0 auto;
+        background-color: #ffffff;
+        width: 400px;
+        max-width: 100%;
+        padding: 50px;
+        border-radius: 10px;
+        box-sizing: border-box;
+      }
+      .white-container.wide-container {
+        width: 800px;
+      }
+      .white-container.medium-container {
+        width: 600px;
+      }
+      .container-title {
+        text-align: center;
+        margin-top: 0;
+      }
+      .form-label {
+        min-width: 120px;
+      }
+      .form-field {
+        display: flex;
+        align-items: center;
+      }
+      .form-input {
+        width: 100%;
+      }
+      .input,
+      .login-form form p input {
+        padding: 8px 16px;
+        min-width: 200px;
+        border: 1px solid #333;
+        border-radius: 4px;
+      }
+      .form-actions {
+        display: flex;
+        justify-content: center;
+      }
+      .button {
+        font-family: sans-serif;
+        font-size: 16px;
+        padding: 8px 16px;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all ease-in-out 0.3s;
+      }
+      .primary-button {
+        background-color: #2f75d8;
+        border: 1px solid #2f75d8;
+        color: white;
+      }
+      .primary-button:hover {
+        background-color:#ffffff;
+        color: #2f75d8;
+      }
+      .secondary-button {
+        background-color: #ffffff;
+        border: 1px solid #2f75d8;
+        color: #2f75d8;
+      }
+      .secondary-button:hover {
+        background-color:#2f75d8;
+        color: #ffffff;
+      }
+      .courses-title {
+        margin-top: 0;
+      }
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+      }
+      .left-margin {
+        margin-left: 1rem;
+      }
+      .login-form form p {
+        display: flex;
+        align-items: center;
+      }
+      .login-form form p label {
+        min-width: 150px;
+        box-sizing: border-box;
+      }
+      .login-form form p input {
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .button-container {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <a href="/" class="logo">KnowVid</a>
+      <ul class="menu">
+        {% if request.user.is_authenticated %}
+          <li><a href="{% url 'profile' %}">Профіль</a></li>
+          <li><a href="{% url 'course_list' %}">Курси</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        "{% block domready %}"
+        "{% endblock %}"
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+  <style>
+    .lesson-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    .lessons-container {
+      margin-top: 1rem;
+    }
+  </style>
+
+  <div class="wrapper">
+    <div class="white-container wide-container">
+      <h1 class="courses-title">{{ course.title }}</h1>
+      <p>Предмет: {{ course.subject }}</p>
+      <p>Рівень курсу: {{ course.level }}</p>
+      <p>Власник: {{ course.user.username }}</p>
+      <div class="header-container">
+        <h2>Відеоуроки</h2>
+        <a href="{% url 'lesson_create' course.pk %}" class="button primary-button">Створити урок</a>
+      </div>
+      <div class="lessons-container">
+        {% for lesson in lessons %}
+          <div class="lesson-item">{{ lesson.title }} <a class="button primary-button" href="{% url 'lesson_detail' course.pk lesson.pk%}">Відкрити</a></div>
+        {% empty %}
+          <div>Немає доступних відеоуроків</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

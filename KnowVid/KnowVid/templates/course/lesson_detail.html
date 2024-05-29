@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lesson.title }}{% endblock %}
+
+{% block content %}
+  <style>
+    .video {
+      width: 100%;
+    }
+  </style>
+
+  <div class="wrapper">
+    <div class="white-container wide-container">
+      <h1 class="courses-title">{{ lesson.title }}</h1>
+      <p>Рівнь курсу: {{ lesson.level }}</p>
+      <video class="video" controls>
+        <source src="http://127.0.0.1:8000{{ lesson.file.url }}" type="video/mp4">
+        Ваш браузер не підтримує тег video.
+      </video>
+    </div>
+  </div>
+
+{% endblock %}

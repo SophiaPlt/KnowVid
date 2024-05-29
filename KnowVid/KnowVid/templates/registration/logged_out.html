@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Logged Out{% endblock %}
+
+{% block content %}
+	<style>
+		.login-again {
+			border: 0;
+			background-color: transparent;
+			color: #ffffff;
+			font-family: sans-serif;
+			font-size: 16px;
+			transition: all ease-in-out 0.3s;
+		}
+		.login-again:hover {
+			color: #2f75d8;
+		}
+	</style>
+
+	<div class="wrapper">
+		<div class="white-container">
+			<h2 class="courses-title">Ви вийшли із системи</h2>
+			<div class="button-container">
+				<a class="button primary-button" href="{% url 'login' %}">
+					Увійти знову
+				</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Create Course{% endblock %}
+
+{% block content %}
+	<div class="wrapper">
+		<div class="white-container medium-container">
+				<h1 class="container-title">Створити новий курс</h1>
+				<form method="post">
+					{% csrf_token %}
+					<div class="form-field">
+						<label class="form-label" for="title">Назва курсу:</label>
+						<input class="input" type="text" id="title" name="title" required>
+					</div>
+					<br>
+					<div class="form-field">
+						<label class="form-label" for="level">Рівень курсу:</label>
+						<input class="input" type="number" id="level" name="level" required>
+					</div>
+					<br>
+					<div class="form-field">
+						<label class="form-label" for="subject">Предмет:</label>
+						<input class="input" type="text" id="subject" name="subject" required>
+					</div>
+					<br>
+					<div class="form-actions">
+						<button class="button primary-button" type="submit">Створити курс</button>
+					</div>
+				</form>
+		</div>
+	</div>
+{% endblock %}

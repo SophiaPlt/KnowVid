@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+	<style>
+		.profile-label {
+			width: 200px;
+			font-weight: 600;
+		}
+	</style>
+	<div class="wrapper">
+		<div class="white-container medium-container">
+				<h2 class="container-title">Вітаю, {{ request.user.username }}!</h2>
+				<div class="form-field"><p class="profile-label">Ім'я:</p> {{ request.user.first_name }}</div>
+				<div class="form-field"><p class="profile-label">Прізвище:</p> {{ request.user.last_name }}</div>
+				<div class="form-field"><p class="profile-label">Електронна адреса:</p> {{ request.user.email }}</div>
+				<form method="post" action="{% url 'logout' %}">
+					{% csrf_token %}
+					<div class="button-container">
+						<button class="button primary-button" type="submit">Вийти</button>
+					</div>
+				</form>
+		</div>
+	</div>
+{% endblock %}

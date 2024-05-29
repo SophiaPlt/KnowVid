@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+  <style>
+    .title-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 130px;
+    }
+    .main-title {
+      font-size: 60px;
+      font-family: sans-serif;
+      color: #012962;
+      margin-bottom: 0;
+    }
+    .main-description {
+      color: #012962;
+      font-family: sans-serif;
+      margin-bottom: 30px;
+      font-weight: 500;
+    }
+    .title-container .primary-button {
+      font-size: 20px;
+      padding: 10px 30px;
+    }
+    .title-container .primary-button:hover {
+      background: transparent;
+    }
+  </style>
+
+  <div class="wrapper home-wrapper">
+    <div class="title-container">
+      <h1 class="main-title">Вас вітає KnowVid!</h1>
+      <p class="main-description">Платформа, яка допоможе навчатися швидко та цікаво!</p>
+      <a href="{% url 'login' %}" class="button primary-button" type="submit">Розпочати</a>
+    </div>
+  </div>
+{% endblock %}

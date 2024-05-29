@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+  <style>
+    .courses-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1em;
+    }
+    .courses-module {
+      width: 100%;
+      max-width: 800px;
+      background-color: white;
+      padding: 2em;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .courses-module h1 {
+      margin-bottom: 1em;
+      color: #333;
+    }
+    .courses-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .course-item {
+      padding: 1em;
+      border-bottom: 1px solid #ddd;
+    }
+    .course-item:last-child {
+      border-bottom: none;
+    }
+    .course-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #2f75d8;
+    }
+    .course-details {
+      margin-top: 0.5em;
+      color: #666;
+    }
+    .pagination-btn {
+      text-decoration: none;
+      padding: 4px 8px;
+      border: 1px solid #333;
+      border-radius: 4px;
+      color: #333;
+      transition: all ease-in-out 0.3s;
+    }
+    .pagination-btn:hover {
+      background-color: #333;
+      color: white;
+    }
+  </style>
+
+  <div class="wrapper">
+    <div class="courses-container">
+      <div class="courses-module">
+        <h1 class="courses-title">Курси</h1>
+        <div class="header-container">
+          <form class="header-container" method="get" action="{% url 'course_list' %}">
+            <input class="input" type="text" name="q" placeholder="Пошук курсів..." value="{{ request.GET.q }}">
+            <button class="button primary-button" type="submit">Пошук</button>
+            <select class="input" name="order" id="order-select">
+              <option value="title" {% if request.GET.order == "title" %}selected{% endif %}>Назва курсу</option>
+              <option value="level" {% if request.GET.order == "level" %}selected{% endif %}>Рівень курсу</option>
+              <option value="subject" {% if request.GET.order == "subject" %}selected{% endif %}>Предмет</option>
+            </select>
+          </form>
+          {% if user.is_authenticated %}
+            <a href="{% url 'course_create' %}" class="button primary-button">Створити курс</a>
+          {% endif %}
+        </div>
+        {% if courses %}
+          <ul class="courses-list">
+            {% for course in courses %}
+              <li class="course-item">
+                <a href="{% url 'course_detail' course.pk %}" class="course-title">{{ course.title }}</a>
+                <div class="course-details">
+                  <p>Власник: {{ course.user }}</p>
+                  <p>Рівнь курсу: {{ course.level }}</p>
+                  <p>Предмет: {{ course.subject }}</p>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="pagination">
+            <span class="step-links">
+              {% if courses.has_previous %}
+                <a class="pagination-btn" href="?page=1&q={{ request.GET.q }}">&laquo; Перша</a>
+                <a class="pagination-btn" href="?page={{ courses.previous_page_number }}&q={{ request.GET.q }}">Попередня</a>
+              {% endif %}
+              <span class="current">
+                Сторінка {{ courses.number }} з {{ courses.paginator.num_pages }}.
+              </span>
+              {% if courses.has_next %}
+                <a class="pagination-btn" href="?page={{ courses.next_page_number }}&q={{ request.GET.q }}">Наступна</a>
+                <a class="pagination-btn" href="?page={{ courses.paginator.num_pages }}&q={{ request.GET.q }}">Остання &raquo;</a>
+              {% endif %}
+            </span>
+          </div>
+        {% else %}
+          <p>Немає курсів</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('order-select').addEventListener('change', function() {
+      this.form.submit();
+    });
+  </script>
+{% endblock %}
